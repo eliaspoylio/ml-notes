@@ -10,14 +10,14 @@ def sigmoid_derivative(x):
     return x * (1 - x)
 
 
-iterations = 1000000
+iterations = 1000
 
 tr_inputs = np.array([[0,0,1],
                     [1,1,1],
                     [1,0,1],
                     [0,1,1]])
 
-tr_outputs = np.array([[0,1,1,0]]).T
+tr_outputs = np.array([[0,1,0,0]]).T
 
 np.random.seed(1)
 
