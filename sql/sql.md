@@ -264,3 +264,63 @@ speeds_query = """
                ORDER BY hour_of_day
                """
 ```
+
+## Joining Data
+
+### 3)
+
+```python
+# Your code here
+questions_query = """
+                  SELECT id, title, owner_user_id
+                  FROM `bigquery-public-data.stackoverflow.posts_questions`
+                  WHERE tags LIKE '%bigquery%'
+                  """
+
+# Set up the query (cancel the query if it would use too much of 
+# your quota, with the limit set to 1 GB)
+safe_config = bigquery.QueryJobConfig(maximum_bytes_billed=10**10)
+questions_query_job = client.query(questions_query, job_config=safe_config) # Your code goes here
+
+# API request - run the query, and return a pandas DataFrame
+questions_results = questions_query_job.to_dataframe() # Your code goes here
+
+# Preview results
+print(questions_results.head())
+
+# Check your answer
+q_3.check()
+```
+
+### 4) Your first join
+
+```python
+# Your code here
+answers_query = """
+                SELECT a.id, a.body, a.owner_user_id
+                FROM `bigquery-public-data.stackoverflow.posts_answers` AS a
+                INNER JOIN `bigquery-public-data.stackoverflow.posts_questions` AS q ON q.id = a.parent_id
+                WHERE q.tags LIKE '%bigquery%'
+                """
+
+# Set up the query
+safe_config = bigquery.QueryJobConfig(maximum_bytes_billed=9*10**10)
+answers_query_job = client.query(answers_query, job_config=safe_config) # Your code goes here
+
+# API request - run the query, and return a pandas DataFrame
+answers_results = answers_query_job.to_dataframe() # Your code goes here
+
+# Preview results
+print(answers_results.head())
+
+# Check your answer
+q_4.check()
+```
+
+### 5) Answer the question
+
+You have the merge you need. But you want a list of users who have answered many questions... which requires more work beyond your previous result.
+
+```python
+
+```
